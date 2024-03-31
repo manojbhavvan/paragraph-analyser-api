@@ -34,12 +34,6 @@ class ParagraphCreateAPIView(APIView):
         )
 
 
-from rest_framework import generics
-from rest_framework.response import Response
-from .models import Paragraph
-from .serializers import ParagraphSerializer
-
-
 class SearchParagraphsAPIView(generics.ListAPIView):
     serializer_class = ParagraphSerializer
 
