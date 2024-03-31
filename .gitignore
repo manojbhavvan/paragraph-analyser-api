@@ -1,0 +1,6 @@
+# Ignoring the env
+env
+# Ignoring the requirements.txt will add later
+requirements.txt
+# Ignoring the Json Testing Folder for now, will add later
+Testing-JSONS
