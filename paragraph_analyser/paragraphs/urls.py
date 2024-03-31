@@ -8,4 +8,5 @@ urlpatterns = [
         views.ParagraphCreateAPIView.as_view(),
         name="paragraph-create",
     ),
+    path("search/", views.SearchParagraphsAPIView.as_view(), name="search-paragraphs"),
 ]
