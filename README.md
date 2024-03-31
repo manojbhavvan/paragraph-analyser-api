@@ -19,6 +19,32 @@ To create paragraphs, send a POST request to the endpoint `/api/paragraphs/` wit
 
 Replace "Your paragraph content here" with the actual paragraph content.
 
+The response to be received would be
+```json
+{
+    "message": "Paragraph created successfully",
+    "paragraph_id": "Paragraph id's"
+}
+```
+
+### Search functionality
+To search word in paragraphs, send a GET request to the endpoint `/api/search/`
+```json
+{
+    "word": "Your word to search"
+}
+```
+
+Replace "Your word to search" with the actual word to search.
+
+The response to be received would be
+```json
+{
+    "word": "Your word",
+    "output": "Paragraphs containing the word"
+}
+```
+
 ## Contributing
 1. Fork the repository.
 2. Create a new branch: git checkout -b feature/your-feature
