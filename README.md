@@ -9,6 +9,10 @@ This project is an API for analyzing paragraphs and indexing words in a PostgreS
 3. Install dependencies: `pip install -r requirements.txt`
 
 ## Usage
+### Accessing API Documentation
+- **Postman API Documentation**: Check out the collection file (`paragraph-analyser-api.postman_collection.json`)
+For published docs : https://documenter.getpostman.com/view/23687971/2sA35HWgHM
+
 ### Creating Paragraphs
 To create paragraphs, send a POST request to the endpoint `/api/paragraphs/` with the following JSON payload:
 Endpoint: `/api/paragraphs/`
