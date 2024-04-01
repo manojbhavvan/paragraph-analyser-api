@@ -1,11 +1,84 @@
 # from django.shortcuts import render
 
 # Create your views here.
+
+from .models import Paragraph, Word, CustomUser
+from .serializers import ParagraphSerializer, CustomUserSerializer
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password  # Import check_password function
+
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Paragraph, Word
-from .serializers import ParagraphSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def register_user(request):
+    if request.method == "POST":
+        username = request.data.get("username")
+        password = request.data.get("password")
+        email = request.data.get("email")
+
+        if not (username and password and email):
+            return Response(
+                {"error": "Username, password, and email are required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Check if the username or email already exists
+        if User.objects.filter(username=username).exists():
+            return Response(
+                {"error": "Username already exists."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {"error": "Email already exists."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Create the user without authentication credentials
+        user = User.objects.create_user(
+            username=username, password=password, email=email
+        )
+
+        # Optionally, you can customize the response
+        return Response(
+            {"message": "User registered successfully.", "user_id": user.id},
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class UserLoginAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get("email")
+        password = request.data.get("password")
+
+        # Query the database for the user based on email
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user = None
+
+        if user is not None and check_password(password, user.password):
+            # Password matches, generate tokens and return success response
+            refresh = RefreshToken.for_user(user)
+            return Response(
+                {"refresh": str(refresh), "access": str(refresh.access_token)},
+                status=status.HTTP_200_OK,
+            )
+        else:
+            # User authentication failed, return error response
+            return Response(
+                {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
+            )
 
 
 class ParagraphCreateAPIView(APIView):
