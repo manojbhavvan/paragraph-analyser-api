@@ -3,6 +3,11 @@
 ## Introduction
 This project is an API for analyzing paragraphs and indexing words in a PostgreSQL database. It includes endpoints for creating paragraphs and searching for specific words within those paragraphs.
 
+## Tech Stack
+Python - 3.11
+Django REST Framework
+PostGreSQL
+
 ## Installation
 1. Clone the repository: `git clone https://github.com/your_username/paragraph-analyser-api.git`
 2. Navigate to the project directory: `cd paragraph-analyser-api`
@@ -94,6 +99,13 @@ Upon successful authentication, you will receive a JWT token in the response, wh
 3. Make your changes and commit them following the commit message guidelines.
 4. Push to the branch: git push origin feature/your-feature
 5. Submit a pull request.
+
+## Note
+This was a project developed for CodeMonk, Bangalore for Assessment round screening. Unfortunately I was not selected.
+Reasons:
+1. Improper implementation of the function.(Response from the company)
+2. Missed out docker deployment due to time constraints.
+Will add the assessment pdf in the repo. Do check it out!
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
